@@ -1,0 +1,70 @@
+name: Flutter
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 0 1 1,3,5,7,9,11 *'
+
+jobs:
+  flutter:
+    name: Flutter
+    runs-on: macos-15
+    env:
+      APP_IDENTIFIER: ${{ vars.APP_IDENTIFIER }}
+      PROJECT: ${{ vars.PROJECT }}
+      SCHEME: ${{ vars.SCHEME }}
+      KEYCHAIN: ${{ vars.KEYCHAIN }}
+      PLAY_STORE_KEY: ${{ secrets.PLAY_STORE_KEY }}
+      APP_STORE_KEY: ${{ secrets.APP_STORE_KEY }}
+      APP_STORE_KEY_ID: ${{ secrets.APP_STORE_KEY_ID }}
+      APP_STORE_ISSUER_ID: ${{ secrets.APP_STORE_ISSUER_ID }}
+      GIT_USER: ${{ secrets.GIT_USER }}
+      KEYS_GIT_URL: ${{ secrets.KEYS_GIT_URL }}
+      GIT_SSH_KEY: ${{ secrets.GIT_SSH_KEY }}
+      MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Fastlane
+        uses: digitaldem/setup-fastlane@main
+        with:
+          ruby-version: 3.3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.29'
+
+      - name: Initial provisioning
+        run: bundle exec fastlane initial_provisioning android:true ios:true
+
+      # - name: Import signing keys
+      #   run: bundle exec fastlane import_signingassets android:true ios:true
+
+      # - name: Clean workspace
+      #   run: bundle exec fastlane flutter clean
+
+      # - name: Get package dependencies
+      #   run: bundle exec fastlane flutter pub
+
+      # - name: Run unit tests
+      #   run: bundle exec fastlane flutter test
+
+      # - name: Build all targets
+      #   run: bundle exec fastlane flutter build android:true ios:true
+
+      # - name: Upload all binaries
+      #   run: bundle exec fastlane flutter upload android:true ios:true
+
+      # - name: Clean workspace
+      #   run: bundle exec fastlane flutter clean
