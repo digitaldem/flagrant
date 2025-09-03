@@ -1,4 +1,4 @@
-package com.digitaldementia.flagrant.flagrant
+package com.digitaldementia.flagrant
 
 import io.flutter.embedding.android.FlutterActivity
 
