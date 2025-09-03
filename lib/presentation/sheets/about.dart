@@ -9,7 +9,7 @@ class AboutSheet extends StatelessWidget {
 
     final appVersion = '1.0.0';
     final appAuthor = 'digitaldementia';
-    final appCopyrightYear = 2005;
+    final appCopyrightYear = 2025;
     final currentYear = DateTime.now().year;
 
     return SingleChildScrollView(
