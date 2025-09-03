@@ -1,0 +1,16 @@
+# Miscellaneous
+.DS_Store
+.idea
+.env
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.metadata
+.pub-cache/
+.pub/
+/build/
+pubspec.lock
