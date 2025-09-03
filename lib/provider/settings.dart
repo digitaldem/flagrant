@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../data/effigy.dart';
 import '../domain/effigy.dart';
+import '../domain/shared_preferences.dart';
+import '../domain/wakelock.dart';
 
 class SettingsProvider extends ChangeNotifier {
   static const Map<Orientation, IEffigy> effigies = {
@@ -26,7 +26,8 @@ class SettingsProvider extends ChangeNotifier {
   static const _fadeEnabledKey = 'fadeEnabled';
   static const _fadeMinutesKey = 'fadeMinutes';
 
-  final SharedPreferences prefs;
+  final ISharedPreferencesService sharedPreferences;
+  final IWakelockPlusService wakelockPlus;
 
   bool _keepAwake;
   bool get keepAwake => _keepAwake;
@@ -37,40 +38,42 @@ class SettingsProvider extends ChangeNotifier {
   int _fadeMinutes;
   int get fadeMinutes => _fadeMinutes;
 
-  SettingsProvider(this.prefs)
-    : _keepAwake = prefs.getBool(_keepAwakeKey) ?? false,
-      _fadeEnabled = prefs.getBool(_fadeEnabledKey) ?? false,
-      _fadeMinutes = (prefs.getInt(_fadeMinutesKey) ?? 5).clamp(1, 60);
+  SettingsProvider._(this.sharedPreferences, this.wakelockPlus)
+    : _keepAwake = sharedPreferences.getBool(_keepAwakeKey),
+      _fadeEnabled = sharedPreferences.getBool(_fadeEnabledKey),
+      _fadeMinutes = sharedPreferences.getInt(_fadeMinutesKey, defaultValue: 10).clamp(1, 60);
 
-  Future<void> init() async {
-    if (_keepAwake) {
-      await WakelockPlus.enable();
+  static Future<SettingsProvider> create(ISharedPreferencesService sharedPreferences, IWakelockPlusService wakelockPlus) async {
+    final provider = SettingsProvider._(sharedPreferences, wakelockPlus);
+    if (provider.keepAwake) {
+      await wakelockPlus.enable();
     } else {
-      await WakelockPlus.disable();
+      await wakelockPlus.disable();
     }
+    return provider;
   }
 
   Future<void> setKeepAwake(bool value) async {
     _keepAwake = value;
-    await prefs.setBool(_keepAwakeKey, value);
+    await sharedPreferences.setBool(_keepAwakeKey, value);
 
     if (value) {
-      await WakelockPlus.enable();
+      await wakelockPlus.enable();
     } else {
-      await WakelockPlus.disable();
+      await wakelockPlus.disable();
     }
     notifyListeners();
   }
 
   Future<void> setFadeEnabled(bool value) async {
     _fadeEnabled = value;
-    await prefs.setBool(_fadeEnabledKey, value);
+    await sharedPreferences.setBool(_fadeEnabledKey, value);
     notifyListeners();
   }
 
   Future<void> setFadeMinutes(int minutes) async {
     _fadeMinutes = minutes.clamp(1, 60);
-    await prefs.setInt(_fadeMinutesKey, _fadeMinutes);
+    await sharedPreferences.setInt(_fadeMinutesKey, _fadeMinutes);
     notifyListeners();
   }
 }
