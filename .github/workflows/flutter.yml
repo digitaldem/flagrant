@@ -45,26 +45,26 @@ jobs:
         with:
           flutter-version: '3.29'
 
-      - name: Initial provisioning
-        run: bundle exec fastlane initial_provisioning android:true ios:true
+      # - name: Initial provisioning
+      #   run: bundle exec fastlane initial_provisioning android:true ios:true
 
-      # - name: Import signing keys
-      #   run: bundle exec fastlane import_signingassets android:true ios:true
+      - name: Import signing keys
+        run: bundle exec fastlane import_signingassets android:true ios:true
 
-      # - name: Clean workspace
-      #   run: bundle exec fastlane flutter clean
+      - name: Clean workspace
+        run: bundle exec fastlane flutter clean
 
-      # - name: Get package dependencies
-      #   run: bundle exec fastlane flutter pub
+      - name: Get package dependencies
+        run: bundle exec fastlane flutter pub
 
-      # - name: Run unit tests
-      #   run: bundle exec fastlane flutter test
+      - name: Run unit tests
+        run: bundle exec fastlane flutter test
 
-      # - name: Build all targets
-      #   run: bundle exec fastlane flutter build android:true ios:true
+      - name: Build all targets
+        run: bundle exec fastlane flutter build android:true ios:true
 
-      # - name: Upload all binaries
-      #   run: bundle exec fastlane flutter upload android:true ios:true
+      - name: Upload all binaries
+        run: bundle exec fastlane flutter upload android:true ios:true
 
-      # - name: Clean workspace
-      #   run: bundle exec fastlane flutter clean
+      - name: Clean workspace
+        run: bundle exec fastlane flutter clean
