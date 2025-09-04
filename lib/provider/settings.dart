@@ -40,7 +40,7 @@ class SettingsProvider extends ChangeNotifier {
 
   SettingsProvider._(this.sharedPreferences, this.wakelockPlus)
     : _keepAwake = sharedPreferences.getBool(_keepAwakeKey),
-      _fadeEnabled = sharedPreferences.getBool(_fadeEnabledKey),
+      _fadeEnabled = sharedPreferences.getBool(_fadeEnabledKey, defaultValue: true),
       _fadeMinutes = sharedPreferences.getInt(_fadeMinutesKey, defaultValue: 10).clamp(1, 60);
 
   static Future<SettingsProvider> create(ISharedPreferencesService sharedPreferences, IWakelockPlusService wakelockPlus) async {

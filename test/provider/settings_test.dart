@@ -15,7 +15,7 @@ void main() {
       final sp = await SettingsProvider.create(prefs, wakelock);
 
       expect(sp.keepAwake, isFalse);
-      expect(sp.fadeEnabled, isFalse);
+      expect(sp.fadeEnabled, isTrue);
       expect(sp.fadeMinutes, 10);
 
       // wakelock should be turned off during create()

@@ -32,7 +32,7 @@ class AboutSheet extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('flagrant', style: theme.textTheme.labelLarge),
+                Text('Flagrant Freedom', style: theme.textTheme.labelLarge),
                 SizedBox(height: 4),
                 Text('version $appVersion', style: theme.textTheme.labelSmall),
                 SizedBox(height: 2),
