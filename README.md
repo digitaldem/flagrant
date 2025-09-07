@@ -1,7 +1,7 @@
 > <br>
-> **“*Congress shall make no law respecting an establishment of religion, or prohibiting the free exercise thereof; or abridging the freedom of speech, or of the press; or the right of the people peaceably to assemble, and to petition the Government for a redress of grievances.*”**
+> <b>“<i>Congress shall make no law respecting an establishment of religion, or prohibiting the free exercise thereof; or abridging the freedom of speech, or of the press; or the right of the people peaceably to assemble, and to petition the Government for a redress of grievances.</i>”</b>
 > <br>
-> &nbsp;&nbsp;&nbsp;&nbsp;**- First Amendment to the United States Constitution, 1791**
+> &nbsp;&nbsp;&nbsp;&nbsp;<b>- First Amendment to the United States Constitution, 1791</b>
 > <br><br>
 
 
