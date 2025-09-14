@@ -5,7 +5,11 @@ on:
   #  branches:
   #    - main
   workflow_dispatch:
-  
+    inputs:
+      version:
+        description: Optional version number (e.g. 1.0.0)
+        required: false
+
 jobs:
   flutter:
     name: Flutter
@@ -23,6 +27,7 @@ jobs:
       KEYS_GIT_URL: ${{ secrets.KEYS_GIT_URL }}
       GIT_SSH_KEY: ${{ secrets.GIT_SSH_KEY }}
       MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+      VERSION: ${{ github.event.inputs.version }}
 
     steps:
       - name: Checkout repository
@@ -60,10 +65,10 @@ jobs:
         run: bundle exec fastlane flutter test
 
       - name: Build all targets
-        run: bundle exec fastlane flutter build android:true ios:true
+        run: bundle exec fastlane flutter build android:true ios:true version:${{ env.VERSION }}
 
       - name: Upload all binaries
-        run: bundle exec fastlane flutter upload android:true ios:true
+        run: bundle exec fastlane flutter upload android:true ios:true version:${{ env.VERSION }}
 
       - name: Clean workspace
         run: bundle exec fastlane flutter clean
