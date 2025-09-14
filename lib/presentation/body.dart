@@ -94,15 +94,15 @@ class _BodyState extends State<Body> with TickerProviderStateMixin {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final settings = context.watch<SettingsProvider>();
+    final settingsProvider = Provider.of<SettingsProvider>(context, listen: true);
     _fadeEnabledPrevious = _fadeEnabled;
-    _fadeEnabled = settings.fadeEnabled;
+    _fadeEnabled = settingsProvider.fadeEnabled;
 
     if (!_fadeEnabledPrevious && _fadeEnabled) {
       _blobSeed++;
     }
 
-    final newDissolve = _fadeEnabled ? Duration(minutes: settings.fadeMinutes.clamp(1, 60)) : const Duration(milliseconds: 1);
+    final newDissolve = _fadeEnabled ? Duration(minutes: settingsProvider.fadeMinutes.clamp(1, 60)) : const Duration(milliseconds: 1);
 
     if (_dissolveController.duration != newDissolve) {
       _blobSeed++;
