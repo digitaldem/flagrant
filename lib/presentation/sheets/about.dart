@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../../provider/settings.dart';
+
 class AboutSheet extends StatelessWidget {
   const AboutSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
-    final appVersion = '1.0.0';
-    final appAuthor = 'digitaldementia';
-    final appCopyrightYear = 2025;
     final currentYear = DateTime.now().year;
 
     return SingleChildScrollView(
@@ -34,10 +32,10 @@ class AboutSheet extends StatelessWidget {
               children: [
                 Text('Flagrant Freedom', style: theme.textTheme.labelLarge),
                 SizedBox(height: 4),
-                Text('version $appVersion', style: theme.textTheme.labelSmall),
+                Text('version ${SettingsProvider.appVersion}', style: theme.textTheme.labelSmall),
                 SizedBox(height: 2),
                 Text(
-                  '© ${(currentYear > appCopyrightYear) ? '$appCopyrightYear - $currentYear' : '$appCopyrightYear'} $appAuthor',
+                  '© ${(currentYear > SettingsProvider.appCopyrightYear) ? '${SettingsProvider.appCopyrightYear} - $currentYear' : '${SettingsProvider.appCopyrightYear}'} ${SettingsProvider.appAuthor}',
                   style: theme.textTheme.labelSmall,
                 ),
               ],

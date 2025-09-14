@@ -6,6 +6,11 @@ import '../domain/shared_preferences.dart';
 import '../domain/wakelock.dart';
 
 class SettingsProvider extends ChangeNotifier {
+  static const String appVersion = '1.0.0';
+  static const String appAuthor = 'digitaldementia';
+  static const int appCopyrightYear = 2025;
+  static const String appPrivacyPolicyUrl = 'https://digitaldementia.com/privacy.html';
+
   static const Map<Orientation, IEffigy> effigies = {
     Orientation.portrait: Effigy(
       image: 'assets/images/djt_portrait.png',

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import './sheets/about.dart';
 import './sheets/executive_order.dart';
+import './sheets/privacy_policy.dart';
 import './sheets/settings.dart';
 
 class BottomBar extends StatelessWidget {
@@ -27,9 +28,10 @@ class BottomBar extends StatelessWidget {
                   icon: const Icon(Icons.more_vert, size: 30),
                   itemBuilder:
                       (_) => [
-                        PopupMenuItem(value: SheetType.about, child: Text(SheetType.about.title)),
                         PopupMenuItem(value: SheetType.executiveOrder, child: Text(SheetType.executiveOrder.title)),
+                        PopupMenuItem(value: SheetType.about, child: Text(SheetType.about.title)),
                         PopupMenuItem(value: SheetType.settings, child: Text(SheetType.settings.title)),
+                        PopupMenuItem(value: SheetType.privacy, child: Text(SheetType.privacy.title)),
                       ],
                   onSelected: (value) => showBottomSheet(context, sheetType: value),
                 ),
@@ -85,7 +87,8 @@ class BottomBar extends StatelessWidget {
 enum SheetType {
   about(1),
   executiveOrder(2),
-  settings(3);
+  privacy(3),
+  settings(4);
 
   final int value;
   const SheetType(this.value);
@@ -97,6 +100,8 @@ enum SheetType {
       case 2:
         return 'Executive Order';
       case 3:
+        return 'Privacy Policy';
+      case 4:
         return 'Settings';
       default:
         return '';
@@ -110,6 +115,8 @@ enum SheetType {
       case 2:
         return const ExecutiveOrderSheet();
       case 3:
+        return const PrivacyPolicySheet();
+      case 4:
         return const SettingsSheet();
       default:
         return null;
